@@ -9,6 +9,9 @@ tfBuffer = tf2_ros.Buffer(rospy.Time(30))
 fiducial_id = 101
 def fiducial_cb(msg):
     for tf in msg.transforms:
+        '''
+        Limits the output of recognition to fiducial ID 101
+        '''
         if tf.fiducial_id == fiducial_id:
             t = TransformStamped()
             t.child_frame_id = "fiducial"

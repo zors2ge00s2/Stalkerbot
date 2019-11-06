@@ -1,0 +1,154 @@
+---
+header: 
+  seq: 273
+  stamp: 
+    secs: 1573070231
+    nsecs: 138536699
+  frame_id: "raspicam"
+image_seq: 383
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.0291037316275
+        y: -0.115089973144
+        z: 0.50981202582
+      rotation: 
+        x: -0.0268379557493
+        y: 0.954844953683
+        z: 0.216410226875
+        w: 0.201785659208
+    image_error: 2.42500561696
+    object_error: 0.0748073875833
+    fiducial_area: 7738.83839084
+---
+header: 
+  seq: 274
+  stamp: 
+    secs: 1573070231
+    nsecs: 170773093
+  frame_id: "raspicam"
+image_seq: 384
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.0293570704924
+        y: -0.115142102081
+        z: 0.509604004588
+      rotation: 
+        x: -0.0271000485036
+        y: 0.95409785721
+        z: 0.220555777925
+        w: 0.200793463694
+    image_error: 2.43031128247
+    object_error: 0.07503459194
+    fiducial_area: 7739.92936143
+---
+header: 
+  seq: 275
+  stamp: 
+    secs: 1573070231
+    nsecs: 206319986
+  frame_id: "raspicam"
+image_seq: 385
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.0294994292922
+        y: -0.115292608882
+        z: 0.509787658542
+      rotation: 
+        x: -0.027117736293
+        y: 0.953916648052
+        z: 0.22153805034
+        w: 0.200570559151
+    image_error: 2.5713806783
+    object_error: 0.0794858698998
+    fiducial_area: 7735.04084374
+---
+header: 
+  seq: 276
+  stamp: 
+    secs: 1573070231
+    nsecs: 237370711
+  frame_id: "raspicam"
+image_seq: 386
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.029577054529
+        y: -0.115386164495
+        z: 0.510274563093
+      rotation: 
+        x: -0.0271403968114
+        y: 0.954068148512
+        z: 0.221017304649
+        w: 0.200421350915
+    image_error: 2.52255231989
+    object_error: 0.0780947481333
+    fiducial_area: 7722.53759772
+---
+header: 
+  seq: 277
+  stamp: 
+    secs: 1573070231
+    nsecs: 270740119
+  frame_id: "raspicam"
+image_seq: 387
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.0293776868356
+        y: -0.115448536812
+        z: 0.510620251006
+      rotation: 
+        x: -0.0268549968154
+        y: 0.954478837104
+        z: 0.219106625653
+        w: 0.200602206524
+    image_error: 2.44387247061
+    object_error: 0.0756904906057
+    fiducial_area: 7714.86880238
+---
+^Cheader: 
+  seq: 278
+  stamp: 
+    secs: 1573070231
+    nsecs: 304130151
+  frame_id: "raspicam"
+image_seq: 388
+transforms: 
+  - 
+    fiducial_id: 101
+    transform: 
+      translation: 
+        x: -0.0290211524177
+        y: -0.115490258011
+        z: 0.51040514393
+      rotation: 
+        x: -0.0263137469629
+        y: 0.953953013093
+        z: 0.219492520283
+        w: 0.20274187794
+    image_error: 2.43739815542
+    object_error: 0.0755343150109
+    fiducial_area: 7706.75098562
+---
+header: 
+  seq: 45
+  stamp: 
+    secs: 1573070304
+    nsecs: 100444902
+  frame_id: "raspicam"
+image_seq: 145
+transforms: []
+---

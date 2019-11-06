@@ -16,7 +16,7 @@ def handle_turtle_pose(msg):
 
     t.header.stamp = rospy.Time.now()
     t.header.frame_id = "world"
-    t.child_frame_id = turtle_name
+    t.child_frame_id = "burger"
     t.transform.translation.x = msg.pose.pose.position.x
     t.transform.translation.y = msg.pose.pose.position.y
     t.transform.translation.z = 0.0

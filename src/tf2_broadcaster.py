@@ -11,10 +11,11 @@ import nav_msgs.msg
 
 
 def handle_turtle_pose(msg):
+    time = msg.header.stamp
     br = tf2_ros.TransformBroadcaster()
     t = geometry_msgs.msg.TransformStamped()
 
-    t.header.stamp = rospy.Time.now()
+    t.header.stamp =  time
     t.header.frame_id = "world"
     t.child_frame_id = "burger"
     t.transform.translation.x = msg.pose.pose.position.x

@@ -3,7 +3,7 @@ import rospy
 import math
 from stalkerbot.msg import location_info
 from fiducial_msgs.msg import FiducialTransformArray
-fiducial_id = 101
+fiducial_id = 100
 def fiducial_cb(msg):
     for tf in msg.transforms:
         info = location_info()

@@ -12,20 +12,18 @@ def fiducial_cb(msg):
     vel_msg.angular.z = 0
     if len(msg.transforms) > 0 :
         for tf in msg.transforms :
-            '''
-            Limits the output of recognition to fiducial ID 101
-            '''
+            #Limits the output of recognition to chosen fiducial ID
             if tf.fiducial_id == fiducial_id:
                     x = math.sqrt(tf.transform.translation.x ** 2 + tf.transform.translation.y ** 2)
-                    z = math.atan2(tf.transform.translation.y, tf.transform.translation.x)
+                    z = 0* math.atan2(tf.transform.translation.y, tf.transform.translation.x) 
+                    print "x: ", x
+                    print "z: ", z
                     if x > 0.2:
                         x = 0.2
                     if z > 1:
                         z = 1
                     if z < -1:
                         z = -1
-                    print x
-                    print z
                     vel_msg.linear.x = x
                     vel_msg.angular.z = z
     cmd_vel.publish(vel_msg)

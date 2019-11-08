@@ -1,0 +1,6 @@
+float32 x_translation
+float32 y_translation
+float32 z_translation
+float32 x_orientation
+float32 y_orientation
+float32 z_orientation

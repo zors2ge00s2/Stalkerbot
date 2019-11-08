@@ -13,7 +13,7 @@ Run Aruco Detect:
 > $ roslaunch aruco_detect aruco_detect.launch
 
 Activate 2D-Camera:
-> $ roslaunch raspicam_node camerav2_410x308_30fps.launch
+> $ roslaunch raspicam_node camerav2_410x308_30fps_sports.launch
 
 Bring up the camera panel:
 > $ rqt_image_view

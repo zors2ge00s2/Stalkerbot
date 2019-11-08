@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import math
-import tf_conversions
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from stalkerbot.msg import location_info
 from fiducial_msgs.msg import FiducialTransformArray
 fiducial_id = 100

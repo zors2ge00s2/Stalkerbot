@@ -9,11 +9,26 @@ Install Fiducial Package:
 Marker Generation:
 > $ rosrun aruco_detect create_markers.py 100 112 fiducials.pdf
 
+Install ros image transport
+> $ sudo apt-get install ros-melodic-image-transport
+
 Run Aruco Detect:
 > $ roslaunch aruco_detect aruco_detect.launch
 
+Move camera configuration launch file to the raspicam_node folder
+> $ sudo scp $location_folder/camerav2_410x308_30fps_sports.launch $destination_robot@$dest_robot.dyn.brandeis.edu:~/camerav2_410x308_30fps_sports.launch
+
+Then from raspberrypi of the robot, run
+> $ sudo scp ~/camerav2_410x308_30fps_sports.launch /opt/ros/kinetic/share/raspicam_node/launch/camerav2_410x308_30fps_sports.launch
+
+Clean up step
+> $ rm ~/camerav2_410x308_30fps_sports.launch
+
 Activate 2D-Camera:
 > $ roslaunch raspicam_node camerav2_410x308_30fps_sports.launch
+
+Launch our main file:
+> $ roslaunch stalkerbot main.launch
 
 Bring up the camera panel:
 > $ rqt_image_view

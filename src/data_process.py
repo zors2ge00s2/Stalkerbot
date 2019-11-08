@@ -11,6 +11,12 @@ def fiducial_cb(msg):
         info.y_translation = tf.transform.translation.y
         info.z_translation = tf.transform.translation.z
 
+        orientation_q = tf.transform.rotation
+        orientation_list = [orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w]
+        (roll, pitch, yaw) = euler_from_quaternion (orientation_list)
+        info.x_orientation = roll
+        info.y_orientation = pitch
+        info.z_orientation = yaw
         # if tf.fiducial_id == fiducial_id:
         #     t = TransformStamped()
         #     t.child_frame_id = "fiducial"

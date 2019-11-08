@@ -17,21 +17,10 @@ def fiducial_cb(msg):
         info.x_orientation = roll
         info.y_orientation = pitch
         info.z_orientation = yaw
-        # if tf.fiducial_id == fiducial_id:
-        #     t = TransformStamped()
-        #     t.child_frame_id = "fiducial"
-        #     t.header.frame_id = "burger"
-        #     t.header.stamp = msg.header.stamp
-        #     t.transform.translation.x = tf.transform.translation.x
-        #     t.transform.translation.y = tf.transform.translation.y
-        #     t.transform.translation.z = tf.transform.translation.z
-        #     t.transform.rotation.x = tf.transform.rotation.x
-        #     t.transform.rotation.y = tf.transform.rotation.y
-        #     t.transform.rotation.z = tf.transform.rotation.z
-        #     t.transform.rotation.w = tf.trasform.rotation.w
+        location_pub.publish(info)
 
 
-cmd_vel = rospy.Publisher('location', location_info, queue_size=1)
+location_pub = rospy.Publisher('location', location_info, queue_size=1)
 rospy.init_node('data_process')
-sub = rospy.Subscriber('/fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
+sub = rospy.Subscriber('fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
 rospy.spin()

@@ -1,6 +1,6 @@
 <launch>
     <node name="ArucoPub" pkg="stalkerbot" type="Aruco_Pub.py" output="screen"/>
-    <!-- <node name="data_process" pkg="stalkerbot" type="data_process.py" output="screen"/> -->
+    <node name="data_process" pkg="stalkerbot" type="data_process.py" output="screen"/>
     <node name="ArucoDetect" pkg="aruco_detect" type="aruco_detect" output="screen"/>
     <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=raspicam_node/image raw out:=/camera"/>
 </launch>

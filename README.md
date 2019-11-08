@@ -15,8 +15,10 @@ Install ros image transport
 Run Aruco Detect:
 > $ roslaunch aruco_detect aruco_detect.launch
 
+<!-- Where does the file come from? -->
 Move camera configuration launch file to the raspicam_node folder
-> $ sudo scp $location_folder/camerav2_410x308_30fps_sports.launch $destination_robot@$dest_robot.dyn.brandeis.edu:~/camerav2_410x308_30fps_sports.launch
+> $ sudo scp {location_folder}/camerav2_410x308_30fps_sports.launch 
+> $ {robo}@{robot}.dyn.brandeis.edu:~/camerav2_410x308_30fps_sports.launch
 
 Then from raspberrypi of the robot, run
 > $ sudo scp ~/camerav2_410x308_30fps_sports.launch /opt/ros/kinetic/share/raspicam_node/launch/camerav2_410x308_30fps_sports.launch

@@ -2,11 +2,11 @@
 import rospy
 from geometry_msgs.msg import Twist
 import math
-import tf2_ros
+from stalkerbot.msg import location_info
 from fiducial_msgs.msg import FiducialTransformArray
 
 fiducial_id = 101
-def fiducial_cb(msg):
+def location_cb(msg):
     vel_msg = Twist()
     vel_msg.linear.x = 0
     vel_msg.angular.z = 0
@@ -28,5 +28,6 @@ def fiducial_cb(msg):
 
 cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
 rospy.init_node('fiducial_print')
-sub = rospy.Subscriber('/fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
+sub = rospy.Subscriber('location', location_info, location_cb, queue_size = 1)
+# sub = rospy.Subscriber('/fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
 rospy.spin()

@@ -5,6 +5,7 @@ from stalkerbot.msg import location_info
 from fiducial_msgs.msg import FiducialTransformArray
 
 fiducial_id = 101
+
 def location_cb(msg):
     vel_msg = Twist()
     vel_msg.linear.x = 0
@@ -17,12 +18,13 @@ def location_cb(msg):
             linear_vel = 0.2
             vel_msg.linear.x = linear_vel
             vel_msg.angular.z = rotational_vel
+    print('---')
+    print('current linear velocity: %.2f' % vel_msg.linear.x)
+    print('current angular velocity: %.2f' % vel_msg.angular.z)
     cmd_vel.publish(vel_msg)
 
 
-
-rospy.init_node('fiducial_print')
-cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
-sub = rospy.Subscriber('stalkerbot/location/marker', location_info, location_cb, queue_size = 1)
-# sub = rospy.Subscriber('/fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
+rospy.init_node('follow')
+cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
+sub = rospy.Subscriber('/stalkerbot/location/marker', location_info, location_cb, queue_size = 1)
 rospy.spin()

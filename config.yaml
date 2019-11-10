@@ -1,7 +1,6 @@
 core:
   desired_distance: 0.6
   target_fiducials:
-    - 100
     - 101
 robot:
   camera:

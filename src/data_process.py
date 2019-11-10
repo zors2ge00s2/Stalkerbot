@@ -20,7 +20,7 @@ def fiducial_cb(msg):
         info.z_orientation = yaw
         location_pub.publish(info)
 
-location_pub = rospy.Publisher('location', location_info, queue_size=1)
+location_pub = rospy.Publisher('stalkerbot/location/marker', location_info, queue_size=1)
 rospy.init_node('data_process')
 sub = rospy.Subscriber('fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
 rospy.spin()

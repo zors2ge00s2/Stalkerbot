@@ -1,3 +1,4 @@
+int32 fiducial_id
 float32 x_translation
 float32 y_translation
 float32 z_translation

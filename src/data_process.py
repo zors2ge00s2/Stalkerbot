@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import rospy
-import math
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from stalkerbot.msg import location_info
 from fiducial_msgs.msg import FiducialTransformArray
@@ -8,6 +7,7 @@ fiducial_id = 100
 def fiducial_cb(msg):
     for tf in msg.transforms:
         info = location_info()
+        info.fiducial_id = tf.fiducial_id
         info.x_translation = tf.transform.translation.x
         info.y_translation = tf.transform.translation.y
         info.z_translation = tf.transform.translation.z
@@ -20,8 +20,7 @@ def fiducial_cb(msg):
         info.z_orientation = yaw
         location_pub.publish(info)
 
-
-location_pub = rospy.Publisher('location', location_info, queue_size=1)
+location_pub = rospy.Publisher('stalkerbot/location/marker', location_info, queue_size=1)
 rospy.init_node('data_process')
 sub = rospy.Subscriber('fiducial_transforms', FiducialTransformArray, fiducial_cb, queue_size = 1)
 rospy.spin()

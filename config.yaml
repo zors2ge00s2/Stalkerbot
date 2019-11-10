@@ -1,0 +1,9 @@
+core:
+  desired_distance: 0.6
+  target_fiducials:
+    - 100
+    - 101
+robot:
+  camera:
+    horizontal_fov: 62.2
+    vertical_fov: 48.8

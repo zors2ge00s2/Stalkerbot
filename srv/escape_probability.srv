@@ -1,0 +1,4 @@
+#Takes in location information and output the probability
+location_info location
+---
+float32 escape_probability

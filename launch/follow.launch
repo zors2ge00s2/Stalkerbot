@@ -1,3 +1,4 @@
+<!-- robot is ready to react to fiducial and move -->
 <launch>
     <node name="ArucoPub" pkg="stalkerbot" type="Aruco_Pub.py" output="screen"/>
     <node name="data_process" pkg="stalkerbot" type="data_process.py" output="screen"/>

@@ -1,16 +1,19 @@
-## Configuration
+## Getting Started
 
-#### Getting started
+#### Package Installation
 Install Fiducial Package:
 > $ sudo apt-get install ros-melodic-fiducials
+
+Install PyYAML:
+> $ pip install PyYAML
+
+Install ros image transport
+> $ sudo apt-get install ros-melodic-image-transport
 
 ***Check if any of these are included in the launch file before you proceed***
 
 Marker Generation:
 > $ rosrun aruco_detect create_markers.py 100 112 fiducials.pdf
-
-Install ros image transport
-> $ sudo apt-get install ros-melodic-image-transport
 
 Run Aruco Detect:
 > $ roslaunch aruco_detect aruco_detect.launch

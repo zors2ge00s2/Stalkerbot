@@ -1,7 +1,7 @@
 core:
   desired_distance: 0.6
+  interval_update_frequency: 5
   target_fiducials:
-    - 100
     - 101
 robot:
   camera:

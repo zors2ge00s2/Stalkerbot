@@ -17,7 +17,6 @@ with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
     config = yaml.load(file, Loader=yaml.FullLoader)
     target_fiducials = config['core']['target_fiducials']
 
-
 def fiducials_cb(msg):
     for fiducial in msg.transforms:
         if fiducial.fiducial_id in target_fiducials:

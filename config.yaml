@@ -1,7 +1,17 @@
 core:
-  desired_distance: 0.6
-  interval_update_frequency: 5
+  desired_distance: 1
+  velocity:
+    linear:
+      maximum: 0.15
+      coefficient: ~
+    rotational:
+      maximum: ~
+      coefficient: 1.5
+  frequency:
+    interval: 5
+    cmd_vel: 10
   target_fiducials:
+    - 100
     - 101
 robot:
   camera:

@@ -49,7 +49,7 @@ class Follow():
 
         self.rate = rospy.Rate(self.FREQUENCY)
         while not rospy.is_shutdown():
-            if self.location is not None and self.location.z_translation > self.DESIRED_DISTANCE:
+            if self.location is not None and self.location.z_translation > self.DESIRED_DISTANCE and self.interval is not None and self.interval.data.secs <= 1:
                 cmd_vel.publish(self.twist)
             else:
                 cmd_vel.publish(Twist())

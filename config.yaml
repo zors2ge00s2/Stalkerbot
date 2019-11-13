@@ -17,3 +17,13 @@ robot:
   camera:
     horizontal_fov: 62.2
     vertical_fov: 48.8
+    coordinate:
+      x:
+        coefficient: -1
+        adjustment:
+      y:
+        coefficient: -1
+        adjustment:
+      z:
+        coefficient: -1
+        adjustment:

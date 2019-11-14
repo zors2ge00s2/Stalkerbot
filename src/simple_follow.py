@@ -16,9 +16,6 @@ def location_cb(msg):
         linear_vel = 0.2
         vel_msg.linear.x = linear_vel
         vel_msg.angular.z = rotational_vel
-    print('---')
-    print('current linear velocity: %.2f' % vel_msg.linear.x)
-    print('current angular velocity: %.2f' % vel_msg.angular.z)
     cmd_vel.publish(vel_msg)
 
 

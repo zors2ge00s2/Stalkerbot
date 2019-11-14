@@ -4,6 +4,7 @@ import signal
 import sys
 from geometry_msgs.msg import Twist
 
+'''stops the robot when the program is remotely interrupted'''
 def signal_handler(sig, frame):
         print('Stopping Turtlebot3...')
         twist = Twist()

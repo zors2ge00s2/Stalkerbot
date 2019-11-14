@@ -27,6 +27,7 @@ class Follow():
     def __init__(self):
 
         '''Class variables'''
+        self.warm = True
         self.location = None
         self.interval = None
         self.twist = Twist()

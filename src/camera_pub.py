@@ -13,3 +13,4 @@ rospy.init_node('camera_publisher')
 pub = rospy.Publisher('/camera_info', CameraInfo, queue_size=1)
 sub = rospy.Subscriber('/raspicam_node/camera_info', CameraInfo, callback, queue_size=1)
 rospy.spin()
+

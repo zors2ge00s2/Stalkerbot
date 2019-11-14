@@ -5,7 +5,7 @@ Install Fiducial Package:
 > $ sudo apt-get install ros-melodic-fiducials
 
 Install PyYAML:
-> $ pip install PyYAML
+> $ pip install PyYAML --ignore-installed PyYAML
 
 Install ros image transport
 > $ sudo apt-get install ros-melodic-image-transport
@@ -37,12 +37,19 @@ Edit /.bashrc with
 ## Run Stalkerbot
 
 #### Activate Camera
-Activate 2D-Camera:
+Activate 2D-Camera (via ssh):
 > $ roslaunch raspicam_node camerav2_410x308_30fps_sports.launch
 
 #### Run Launch File
 Operating mode
-> $ roslaunch stalkerbot follow.launch
+> $ roslaunch stalkerbot advanced_follow.launch
 
 Debug mode (Robot does not move, instead, teleop is called)
-> $ roslaunch stalkerbot test.launch
+> $ roslaunch stalkerbot stationary.launch
+
+## Configuration
+
+#### config.yaml file
+The file is a centralized method to store and change constants in our algorithm when necessary.
+Helpful reading: https://martin-thoma.com/configuration-files-in-python/#yaml
+

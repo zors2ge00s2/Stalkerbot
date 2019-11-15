@@ -9,6 +9,9 @@ from stalkerbot.msg import filtered_transform
 '''
 Report the duration between current time and when last fiducial marker was recognized.
 Subscribes to /stalkerbot/fiducial/transform, publishes to /stalkerbot/fiducial/interval
+
+Note: The interval considers both warm and code fiducial markers. In other words,
+It makes no effort to differentiate between the two.
 '''
 
 rospy.init_node('fiducial_interval')

@@ -41,17 +41,26 @@ class Follow():
         self.FREQUENCY = 0
         self.MAXIMUM_LINEAR_VELOCITY = 0
         self.COEFFICIENT_ROTATIONAL_VELOCITY = 0
+        self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = 0
         with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
             config = yaml.load(file, Loader=yaml.FullLoader)
             self.DESIRED_DISTANCE = config['core']['desired_distance']
             self.FREQUENCY = config['core']['frequency']['cmd_vel']
             self.MAXIMUM_LINEAR_VELOCITY = config['core']['velocity']['linear']['maximum']
             self.COEFFICIENT_ROTATIONAL_VELOCITY = config['core']['velocity']['rotational']['coefficient']
+            self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['coefficient_buffer']
 
         self.rate = rospy.Rate(self.FREQUENCY)
         while not rospy.is_shutdown():
-            if self.location is not None and self.location.z_translation > self.DESIRED_DISTANCE and self.interval is not None and self.interval.data.secs <= 1:
+            if self.warm \
+                and self.location is not None and self.location.z_translation > self.DESIRED_DISTANCE \
+                and self.interval is not None and self.interval.data.secs <= 1:
+                if self.interval.data.secs > 0 or (self.interval.data.secs == 0 and self.interval.data.nsecs < 300000000):
+                    self.twist.angular.z *= self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER
                 cmd_vel.publish(self.twist)
+            elif not self.warm:
+                # TODO: An action which steers the robot to the correct position and will be interrupted immediately upon detection of another warm marker
+                continue
             else:
                 cmd_vel.publish(Twist())
             self.rate.sleep()

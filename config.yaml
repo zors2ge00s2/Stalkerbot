@@ -8,7 +8,8 @@ core:
     rotational:
       maximum: ~
       coefficient: 2
-      coefficient_buffer: 0.5
+      buffer_coefficient: 0.5
+      buffer_time: 300000000
   frequency:
     interval: 10
     cmd_vel: 10

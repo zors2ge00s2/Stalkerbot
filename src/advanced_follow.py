@@ -21,6 +21,7 @@ class Follow():
         self.twist.linear.x = linear_vel
         self.twist.angular.z = rotational_vel
 
+    '''Update interval upon callback'''
     def interval_cb(self, msg):
         self.interval = msg
 
@@ -48,19 +49,23 @@ class Follow():
             self.FREQUENCY = config['core']['frequency']['cmd_vel']
             self.MAXIMUM_LINEAR_VELOCITY = config['core']['velocity']['linear']['maximum']
             self.COEFFICIENT_ROTATIONAL_VELOCITY = config['core']['velocity']['rotational']['coefficient']
-            self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['coefficient_buffer']
+            self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['buffer_coefficient']
 
         self.rate = rospy.Rate(self.FREQUENCY)
         while not rospy.is_shutdown():
             if self.warm \
                 and self.location is not None and self.location.z_translation > self.DESIRED_DISTANCE \
                 and self.interval is not None and self.interval.data.secs <= 1:
-                if self.interval.data.secs > 0 or (self.interval.data.secs == 0 and self.interval.data.nsecs < 300000000):
+
+                if self.interval.data.secs > 0 or (self.interval.data.secs == 0 and self.interval.data.nsecs < ):
                     self.twist.angular.z *= self.COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER
+
                 cmd_vel.publish(self.twist)
+
             elif not self.warm:
                 # TODO: An action which steers the robot to the correct position and will be interrupted immediately upon detection of another warm marker
                 continue
+
             else:
                 cmd_vel.publish(Twist())
             self.rate.sleep()

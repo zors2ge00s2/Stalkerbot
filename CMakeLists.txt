@@ -11,13 +11,11 @@ find_package(catkin REQUIRED COMPONENTS
   fiducial_msgs
 )
 
-## Generate messages in the 'msg' folder
 add_message_files(
    FILES
    location_info.msg
    filtered_transform.msg )
 
-## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
 #   Service1.srv
@@ -29,7 +27,6 @@ add_action_files(
     Search.action
 )
 
-## Generate added messages and services with any dependencies listed here
 generate_messages(
     DEPENDENCIES
     std_msgs

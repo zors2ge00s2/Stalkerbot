@@ -1,6 +1,16 @@
 core:
-  desired_distance: 1
-  time_buffer: 2
+  distance:
+    desired: 1
+    detection:
+      trigger: 0.007
+  buffer:
+    movement:
+      sec: 0
+      nsec: 300000000
+    detection:
+      sec: 2
+    search:
+      sec: 4
   velocity:
     linear:
       maximum: 0.15
@@ -9,11 +19,12 @@ core:
       maximum: ~
       coefficient: 2
       buffer_coefficient: 0.5
-      buffer_time: 300000000
   frequency:
     interval: 10
     cmd_vel: 10
     search_preempt: 10
+    motion_detect: 5
+    motion_detect_linger: 5
   target_fiducials:
     warm:
     - 100

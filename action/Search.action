@@ -1,7 +1,7 @@
 # Goal
 #
 # the last warm fiducial
-stalkerbot_msgs/location_info location
+location_info location
 ---
 # Result
 #

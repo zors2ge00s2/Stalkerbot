@@ -3,7 +3,6 @@
 import rospy
 from geometry_msgs.msg import Twist
 from stalkerbot.msg import location_info
-from fiducial_msgs.msg import FiducialTransformArray
 
 def location_cb(msg):
     vel_msg = Twist()

@@ -1,0 +1,13 @@
+# Goal
+#
+# the last warm fiducial
+location_info location
+---
+# Result
+#
+duration time_elapsed
+uint32 updates_sent
+---
+# Feedback
+duration time_elapsed
+duration time_remaining

@@ -4,11 +4,14 @@ import rospy
 import os
 import yaml
 from std_msgs.msg import Time
-from fiducial_msgs.msg import FiducialTransform
+from stalkerbot.msg import filtered_transform
 
 '''
 Report the duration between current time and when last fiducial marker was recognized.
 Subscribes to /stalkerbot/fiducial/transform, publishes to /stalkerbot/fiducial/interval
+
+Note: The interval considers both warm and code fiducial markers. In other words,
+It makes no effort to differentiate between the two.
 '''
 
 rospy.init_node('fiducial_interval')
@@ -19,7 +22,7 @@ def fiducial_cb(msg):
     global last_marker_detection_time
     last_marker_detection_time = rospy.Time.now()
 
-sub = rospy.Subscriber('/stalkerbot/fiducial/transform', FiducialTransform, fiducial_cb, queue_size=1)
+sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, fiducial_cb, queue_size=1)
 interval_publisher = rospy.Publisher('/stalkerbot/fiducial/interval', Time, queue_size=1)
 
 '''Extract rate from config file'''

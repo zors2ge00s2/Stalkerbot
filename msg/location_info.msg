@@ -1,4 +1,4 @@
-int32 fiducial_id
+bool is_warm
 float32 x_translation
 float32 y_translation
 float32 z_translation

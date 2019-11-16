@@ -20,7 +20,7 @@ Run Aruco Detect:
 
 <!-- Where does the file come from? -->
 Move camera configuration launch file to the raspicam_node folder
-> $ sudo scp {location_folder}/camerav2_410x308_30fps_sports.launch {robo}@{robot}.dyn.brandeis.edu:~/camerav2_410x308_30fps_sports.launch
+> $ sudo scp stalkerbot/miscellaneous/camerav2_410x308_30fps_sports.launch {robo}@{robot}.dyn.brandeis.edu:~/camerav2_410x308_30fps_sports.launch
 
 Then from raspberrypi of the robot, run
 > $ sudo scp ~/camerav2_410x308_30fps_sports.launch /opt/ros/kinetic/share/raspicam_node/launch/camerav2_410x308_30fps_sports.launch

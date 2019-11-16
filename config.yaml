@@ -46,3 +46,8 @@ robot:
         z:
           coefficient: -1
           adjustment:
+
+tf:
+  frame_name:
+    robot: base_footprint
+    target: target

@@ -2,7 +2,7 @@ core:
   distance:
     desired: 1
     detection:
-      trigger: 0.1
+      trigger: 0.05
   buffer:
     movement:
       sec: 0
@@ -23,7 +23,7 @@ core:
     interval: 10
     cmd_vel: 10
     search_preempt: 10
-    motion_detect: 5
+    motion_detect: 20
     motion_detect_linger: 5
   target_fiducials:
     warm:
@@ -39,15 +39,15 @@ robot:
       orientation:
         x:
           coefficient: -1
-          adjustment:
+          adjustment: ~
         y:
           coefficient: -1
-          adjustment:
+          adjustment: ~
         z:
           coefficient: -1
-          adjustment:
+          adjustment: ~
 
 tf:
   frame_name:
-    robot: base_footprint
+    robot: base_scan
     target: target

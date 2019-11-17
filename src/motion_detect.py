@@ -6,7 +6,11 @@ import os
 import yaml
 import tf2_ros
 import geometry_msgs.msg
+import copy
 from std_msgs.msg import Bool, Time
+
+from collections import deque
+from statistics import mean
 
 class Detect():
     def _update_transform(self):
@@ -14,8 +18,11 @@ class Detect():
         if self._current_location is not None:
             self._last_location = self._current_location
         self._current_location = tf
-        
 
+        if self._last_location is not None:
+            dist = self._distance()
+            self._results.append(dist)
+        
     def _distance(self):
         '''compute 3D distance between two points'''
         x1, x2 = self._last_location.transform.translation.x, self._current_location.transform.translation.x
@@ -23,10 +30,22 @@ class Detect():
         z1, z2 = self._last_location.transform.translation.z, self._current_location.transform.translation.z
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
         # Uncomment to debug
-        print distance / self._DETECTION_DISTANCE_TRIGGER * 100
+        # print distance / self._DETECTION_DISTANCE_TRIGGER * 100
         return distance
 
+    def _get_moving_average(self):
+        temp = copy.copy(self._results)
+        temp.remove(max(temp))
+        temp.remove(max(temp))
+        temp.remove(min(temp))
+        temp.remove(min(temp))
+        _mean = mean(temp)
+        # Uncomment to debug
+        print _mean / self._DETECTION_DISTANCE_TRIGGER * 100
+        return _mean
+
     def __init__(self):
+        '''class variables'''
         self._interval = None
         self._last_location = None
         self._current_location = None
@@ -36,6 +55,7 @@ class Detect():
         self._listener = tf2_ros.TransformListener(self._tfBuffer)
         motion_publisher = rospy.Publisher('/stalkerbot/motion', Bool, queue_size = 1)
 
+        '''class constants'''
         self._DETECTION_DISTANCE_TRIGGER = 0
         self._FREQUENCY = 0
         self._LINGER_MAXIMUM = 0
@@ -50,6 +70,8 @@ class Detect():
             self._FRAME_ROBOT = config['tf']['frame_name']['robot']
             self._FRAME_TARGET = config['tf']['frame_name']['target']
         
+        '''create a deque'''
+        self._results = deque([], maxlen=10)
         self._rate = rospy.Rate(self._FREQUENCY)
         while not rospy.is_shutdown():
 
@@ -60,13 +82,13 @@ class Detect():
                 self._rate.sleep()
                 continue
 
-            if self._last_location is None:
+            if len(self._results) < 10:
                 motion_publisher.publish(False)
                 self._rate.sleep()
                 continue
             
             detected = False
-            if self._distance() > self._DETECTION_DISTANCE_TRIGGER:
+            if self._get_moving_average() > self._DETECTION_DISTANCE_TRIGGER:
                 detected = True
 
             if detected == True:

@@ -56,7 +56,7 @@ class Follow():
             self._COEFFICIENT_ROTATIONAL_VELOCITY = config['core']['velocity']['rotational']['coefficient']
             self._COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['buffer_coefficient']
             self._DETECTION_BUFFER_SEC = config['core']['buffer']['detection']['sec']
-            self._MOVEMENT_BUFFER = config['core']['buffer']['movement']['sec']
+            self._MOVEMENT_BUFFER_SEC = config['core']['buffer']['movement']['sec']
             self._MOVEMENT_BUFFER_NANOSEC = config['core']['buffer']['movement']['nsec']
 
         self._rate = rospy.Rate(self._FREQUENCY)

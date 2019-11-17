@@ -5,7 +5,7 @@ import math
 import os
 import yaml
 import tf2_ros
-import geometry_msgs.msg
+from geometry_msgs.msg import Twist
 import copy
 from std_msgs.msg import Bool, Time
 
@@ -13,6 +13,10 @@ from collections import deque
 from statistics import mean
 
 class Detect():
+
+    def _vel_cb(self, msg):
+        self._twist = msg
+
     def _update_transform(self):
         tf = self._tfBuffer.lookup_transform(self._FRAME_TARGET, self._FRAME_ROBOT, rospy.Time())
         if self._current_location is not None:
@@ -41,7 +45,10 @@ class Detect():
         temp.remove(min(temp))
         _mean = mean(temp)
         # Uncomment to debug
-        print _mean / self._DETECTION_DISTANCE_TRIGGER * 100
+        # print ratio
+        # if ratio > 1000:
+        #     print self._current_location
+        #     print self._last_location
         return _mean
 
     def __init__(self):
@@ -50,13 +57,16 @@ class Detect():
         self._last_location = None
         self._current_location = None
         self._linger = 0
+        self._twist = Twist()
 
         self._tfBuffer = tf2_ros.Buffer()
         self._listener = tf2_ros.TransformListener(self._tfBuffer)
         motion_publisher = rospy.Publisher('/stalkerbot/motion', Bool, queue_size = 1)
+        vel_subscriber = rospy.Subscriber('cmd_vel', Twist, self._vel_cb, queue_size=1)
 
         '''class constants'''
-        self._DETECTION_DISTANCE_TRIGGER = 0
+        self._DETECTION_DISTANCE_TRIGGER_BASE = 0
+        self._MAXIMUM_LINEAR_VELOCITY = 0
         self._FREQUENCY = 0
         self._LINGER_MAXIMUM = 0
         self._FRAME_ROBOT = ''
@@ -64,12 +74,13 @@ class Detect():
 
         with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
             config = yaml.load(file, Loader=yaml.FullLoader)
-            self._DETECTION_DISTANCE_TRIGGER = config['core']['distance']['detection']['trigger']
+            self._DETECTION_DISTANCE_TRIGGER_BASE = config['core']['distance']['detection']['trigger_base']
             self._FREQUENCY = config['core']['frequency']['motion_detect']
             self._LINGER_MAXIMUM = config['core']['frequency']['motion_detect_linger']
+            self._MAXIMUM_LINEAR_VELOCITY = config['core']['velocity']['linear']['maximum']
             self._FRAME_ROBOT = config['tf']['frame_name']['robot']
             self._FRAME_TARGET = config['tf']['frame_name']['target']
-        
+
         '''create a deque'''
         self._results = deque([], maxlen=10)
         self._rate = rospy.Rate(self._FREQUENCY)
@@ -88,7 +99,14 @@ class Detect():
                 continue
             
             detected = False
-            if self._get_moving_average() > self._DETECTION_DISTANCE_TRIGGER:
+            _moving_average = self._get_moving_average()
+
+            _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 4 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY)
+
+            ratio = _moving_average / _threshold * 100
+            print ratio
+
+            if _moving_average > _threshold:
                 detected = True
 
             if detected == True:

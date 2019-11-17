@@ -14,7 +14,7 @@ class Follow():
     def _location_cb(self, msg):
         self._location = msg
 
-        linear_vel = msg.z_translation * 0.15
+        linear_vel = msg.z_translation * 0.12
         rotational_vel = msg.x_translation/msg.z_translation * self._COEFFICIENT_ROTATIONAL_VELOCITY
         if linear_vel > self._MAXIMUM_LINEAR_VELOCITY:
             linear_vel = self._MAXIMUM_LINEAR_VELOCITY

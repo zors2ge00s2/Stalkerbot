@@ -49,5 +49,6 @@ robot:
 
 tf:
   frame_name:
-    robot: base_scan
+    robot: base_link
+    lidar: base_scan
     target: target

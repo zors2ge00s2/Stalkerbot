@@ -5,9 +5,9 @@ import math
 import os
 import yaml
 import tf2_ros
-from geometry_msgs.msg import Twist
 import copy
-from std_msgs.msg import Bool, Time
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Bool, Time, Float32
 
 from collections import deque
 from statistics import mean
@@ -45,10 +45,6 @@ class Detect():
         temp.remove(min(temp))
         _mean = mean(temp)
         # Uncomment to debug
-        # print ratio
-        # if ratio > 1000:
-        #     print self._current_location
-        #     print self._last_location
         return _mean
 
     def __init__(self):
@@ -100,7 +96,6 @@ class Detect():
             
             detected = False
             _moving_average = self._get_moving_average()
-
             _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 4 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY)
 
             ratio = _moving_average / _threshold * 100

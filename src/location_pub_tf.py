@@ -56,6 +56,8 @@ class Location_publisher():
         t.transform.rotation.z = 0
         t.transform.rotation.w = 0
 
+        br_base.sendTransform(t)
+
         '''class variable'''
         self._seq = 1
 

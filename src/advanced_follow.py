@@ -14,7 +14,7 @@ class Follow():
     def _location_cb(self, msg):
         self._location = msg
 
-        linear_vel = msg.z_translation * 0.15
+        linear_vel = msg.z_translation * 0.12
         rotational_vel = msg.x_translation/msg.z_translation * self._COEFFICIENT_ROTATIONAL_VELOCITY
         if linear_vel > self._MAXIMUM_LINEAR_VELOCITY:
             linear_vel = self._MAXIMUM_LINEAR_VELOCITY
@@ -56,7 +56,7 @@ class Follow():
             self._COEFFICIENT_ROTATIONAL_VELOCITY = config['core']['velocity']['rotational']['coefficient']
             self._COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['buffer_coefficient']
             self._DETECTION_BUFFER_SEC = config['core']['buffer']['detection']['sec']
-            self._MOVEMENT_BUFFER = config['core']['buffer']['movement']['sec']
+            self._MOVEMENT_BUFFER_SEC = config['core']['buffer']['movement']['sec']
             self._MOVEMENT_BUFFER_NANOSEC = config['core']['buffer']['movement']['nsec']
 
         self._rate = rospy.Rate(self._FREQUENCY)

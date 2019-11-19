@@ -37,26 +37,6 @@ class Location_publisher():
         self._seq = self._seq + 1
         
     def __init__(self):
-        
-        '''decares tf transform between lidar and base of the robot.
-        Please refer to the urdf file of turtlebot for more information'''
-        br_base = tf2_ros.TransformBroadcaster()
-        t = geometry_msgs.msg.TransformStamped()
-
-        t.header.stamp = rospy.Time.now()
-        t.header.seq = 0
-        t.header.frame_id = self._FRAME_ROBOT
-        t.child_frame_id = self._FRAME_LIDAR
-
-        t.transform.translation.x = -0.032
-        t.transform.translation.y = 0
-        t.transform.translation.z = 0.172
-        t.transform.rotation.x = 0
-        t.transform.rotation.y = 0
-        t.transform.rotation.z = 0
-        t.transform.rotation.w = 0
-
-        br_base.sendTransform(t)
 
         '''class variable'''
         self._seq = 1
@@ -72,7 +52,27 @@ class Location_publisher():
             self._FRAME_LIDAR = config['tf']['frame_name']['lidar']
             self._FRAME_TARGET = config['tf']['frame_name']['target']
             self._FRAME_ROBOT = config['tf']['frame_name']['robot']
-    
+
+        '''decares tf transform between lidar and base of the robot.
+        Please refer to the urdf file of turtlebot for more information'''
+        br_static = tf2_ros.StaticTransformBroadcaster()
+        t = geometry_msgs.msg.TransformStamped()
+
+        t.header.stamp = rospy.Time.now()
+        t.header.seq = 0
+        t.header.frame_id = self._FRAME_ROBOT
+        t.child_frame_id = self._FRAME_LIDAR
+
+        t.transform.translation.x = -0.032
+        t.transform.translation.y = 0
+        t.transform.translation.z = 0.172
+        t.transform.rotation.x = 0
+        t.transform.rotation.y = 0
+        t.transform.rotation.z = 0
+        t.transform.rotation.w = 1
+
+        br_static.sendTransform(t)
+
         sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, self._fiducial_cb, queue_size = 1)
         rospy.spin()
 
@@ -80,4 +80,5 @@ if __name__ == '__main__':
     rospy.init_node('location_pub_tf')
     try:
         location_publisher = Location_publisher()
-    except rospy.ROSInterruptException:  pass
+    except rospy.ROSInterruptException: 
+        pass

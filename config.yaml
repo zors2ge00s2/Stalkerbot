@@ -2,7 +2,7 @@ core:
   distance:
     desired: 1
     detection:
-      trigger_base: 0.03
+      trigger_base: 0.025
   buffer:
     movement:
       sec: 0
@@ -23,8 +23,10 @@ core:
     interval: 10
     cmd_vel: 10
     search_preempt: 10
-    motion_detect: 10
-    motion_detect_linger: 5
+    motion_detect: 5
+    motion_detect_linger: 0
+  size:
+    detection_deque: 8
   target_fiducials:
     warm:
     - 100
@@ -49,6 +51,6 @@ robot:
 
 tf:
   frame_name:
-    robot: base_link
+    robot: odom
     lidar: base_scan
     target: target

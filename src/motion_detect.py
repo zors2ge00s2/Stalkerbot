@@ -5,9 +5,9 @@ import math
 import os
 import yaml
 import tf2_ros
-from geometry_msgs.msg import Twist
 import copy
-from std_msgs.msg import Bool, Time
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Bool, Time, Float32
 
 from collections import deque
 from statistics import mean
@@ -24,8 +24,12 @@ class Detect():
         self._current_location = tf
 
         if self._last_location is not None:
-            dist = self._distance()
-            self._results.append(dist)
+            _dist = self._distance()
+            _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 2 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY) \
+                * (self._last_location.transform.translation.z ** 1.5 / 1)
+            if _dist != 0:
+                _ratio = _dist / _threshold
+                self._results.append(_ratio)
         
     def _distance(self):
         '''compute 3D distance between two points'''
@@ -33,22 +37,17 @@ class Detect():
         y1, y2 = self._last_location.transform.translation.y, self._current_location.transform.translation.y
         z1, z2 = self._last_location.transform.translation.z, self._current_location.transform.translation.z
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
-        # Uncomment to debug
-        # print distance / self._DETECTION_DISTANCE_TRIGGER * 100
         return distance
 
     def _get_moving_average(self):
         temp = copy.copy(self._results)
-        temp.remove(max(temp))
-        temp.remove(max(temp))
-        temp.remove(min(temp))
-        temp.remove(min(temp))
+        # temp.remove(max(temp))
+        # temp.remove(max(temp))
+        # temp.remove(min(temp))
+        # temp.remove(min(temp))
         _mean = mean(temp)
-        # Uncomment to debug
-        # print ratio
-        # if ratio > 1000:
-        #     print self._current_location
-        #     print self._last_location
+       # Uncomment to debug
+        print _mean * 100
         return _mean
 
     def __init__(self):
@@ -69,6 +68,7 @@ class Detect():
         self._MAXIMUM_LINEAR_VELOCITY = 0
         self._FREQUENCY = 0
         self._LINGER_MAXIMUM = 0
+        self._DEQUE_SIZE = 0
         self._FRAME_ROBOT = ''
         self._FRAME_TARGET = ''
 
@@ -77,11 +77,13 @@ class Detect():
             self._DETECTION_DISTANCE_TRIGGER_BASE = config['core']['distance']['detection']['trigger_base']
             self._FREQUENCY = config['core']['frequency']['motion_detect']
             self._LINGER_MAXIMUM = config['core']['frequency']['motion_detect_linger']
+            self._DEQUE_SIZE = config['core']['size']['detection_deque']
             self._MAXIMUM_LINEAR_VELOCITY = config['core']['velocity']['linear']['maximum']
             self._FRAME_ROBOT = config['tf']['frame_name']['robot']
             self._FRAME_TARGET = config['tf']['frame_name']['target']
 
-        '''create a deque'''
+        '''create a deque as part of the moving average algorithm
+        in order to minimize the effect of sensor noise'''
         self._results = deque([], maxlen=10)
         self._rate = rospy.Rate(self._FREQUENCY)
         while not rospy.is_shutdown():
@@ -93,7 +95,7 @@ class Detect():
                 self._rate.sleep()
                 continue
 
-            if len(self._results) < 10:
+            if len(self._results) < self._DEQUE_SIZE:
                 motion_publisher.publish(False)
                 self._rate.sleep()
                 continue
@@ -101,12 +103,7 @@ class Detect():
             detected = False
             _moving_average = self._get_moving_average()
 
-            _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 4 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY)
-
-            ratio = _moving_average / _threshold * 100
-            print ratio
-
-            if _moving_average > _threshold:
+            if _moving_average > 1:
                 detected = True
 
             if detected == True:

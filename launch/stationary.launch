@@ -5,10 +5,10 @@
     <node name="fiducial_filter" pkg="stalkerbot" type="fiducial_filter.py" output="log"/>
     <node name="fiducial_interval" pkg="stalkerbot" type="fiducial_interval.py" output="log"/>
     <node name="location_publisher" pkg="stalkerbot" type="location_pub.py" output="log"/>
+    <node name="location_publisher_tf" pkg="stalkerbot" type="location_pub_tf.py" output="log"/>
     <node name="motion_detect" pkg="stalkerbot" type="motion_detect.py" output="screen"/>
     <node name="republish" type="republish" pkg="image_transport" output="log" args="compressed in:=raspicam_node/image raw out:=/camera"/>
     <node name="sigint_catcher" pkg="stalkerbot" type="sigint_catcher.py" output="screen"/>
     
-
     <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
 </launch>

@@ -24,9 +24,12 @@ class Detect():
         self._current_location = tf
 
         if self._last_location is not None:
-            dist = self._distance()
-            if dist != 0:
-                self._results.append(dist)
+            _dist = self._distance()
+            _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 2 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY) \
+                * (self._last_location.transform.translation.z ** 1.5 / 1)
+            if _dist != 0:
+                _ratio = _dist / _threshold
+                self._results.append(_ratio)
         
     def _distance(self):
         '''compute 3D distance between two points'''
@@ -43,6 +46,8 @@ class Detect():
         # temp.remove(min(temp))
         # temp.remove(min(temp))
         _mean = mean(temp)
+       # Uncomment to debug
+        print _mean * 100
         return _mean
 
     def __init__(self):
@@ -97,14 +102,8 @@ class Detect():
             
             detected = False
             _moving_average = self._get_moving_average()
-            _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 2 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY) \
-                * (self._last_location.transform.translation.z / 1)
 
-            ratio = _moving_average / _threshold * 100
-            # Uncomment to debug
-            print ratio
-
-            if _moving_average > _threshold:
+            if _moving_average > 1:
                 detected = True
 
             if detected == True:

@@ -26,7 +26,7 @@ core:
     motion_detect: 5
     motion_detect_linger: 0
   size:
-    detection_deque: 8
+    detection_deque: 5
   target_fiducials:
     warm:
     - 100
@@ -51,6 +51,7 @@ robot:
 
 tf:
   frame_name:
-    robot: odom
+    world: odom
+    robot: base_footprint
     lidar: base_scan
     target: target

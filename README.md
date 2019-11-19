@@ -69,7 +69,7 @@ Finally, to check if the camera is working, bring up the camera panel:
 > $ rqt_image_view
 
 Things I had to do to get move_base running right
-roscd turtlebot3_navigation/param
+> $ roscd turtlebot3_navigation/param
 
 Open global_costmap_param.yaml
 Change/add these parameters
@@ -79,10 +79,10 @@ Go to turtlebot3_navigation
 Open the move_base.launch file
 Change move_forward_only to true
 
-roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+> $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
 
 
-roslaunch turtlebot3_navigation move_base.launch
+> $ roslaunch turtlebot3_navigation move_base.launch
 
 #### config.yaml file
 The file is a centralized method to store and change constants in our algorithm when necessary.

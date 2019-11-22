@@ -2,7 +2,7 @@ core:
   distance:
     desired: 1
     detection:
-      trigger_base: 0.025
+      trigger_base: 0.02
   buffer:
     movement:
       sec: 0
@@ -11,12 +11,14 @@ core:
       sec: 2
     search:
       sec: 4
+    motion_detect:
+      sec: 2
   velocity:
     linear:
-      maximum: 0.2
-      coefficient: ~
+      maximum: 0.22
+      coefficient: 0.12
     rotational:
-      maximum: ~
+      maximum: 0.5
       coefficient: 2
       buffer_coefficient: 0.5
   frequency:

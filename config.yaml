@@ -51,7 +51,7 @@ robot:
 
 tf:
   frame_name:
-    world: odom
+    world: map
     robot: base_footprint
     lidar: base_scan
     target: target

@@ -26,7 +26,7 @@ class Detect():
         if self._last_location is not None:
             _dist = self._distance()
             _threshold = self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + 2 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY) \
-                * (self._last_location.transform.translation.z ** 1.5 / 1)
+                * (self._last_location.transform.translation.x ** 1.5 / 1)
             if _dist != 0:
                 _ratio = _dist / _threshold
                 self._results.append(_ratio)

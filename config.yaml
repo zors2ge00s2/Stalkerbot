@@ -2,7 +2,7 @@ core:
   distance:
     desired: 1
     detection:
-      trigger_base: 0.02
+      trigger_base: 0.015
   buffer:
     movement:
       sec: 0

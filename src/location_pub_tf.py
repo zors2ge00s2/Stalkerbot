@@ -63,9 +63,9 @@ class Location_publisher():
         t.header.frame_id = self._FRAME_ROBOT
         t.child_frame_id = self._FRAME_LIDAR
 
-        t.transform.translation.x = -0.032
-        t.transform.translation.y = 0
-        t.transform.translation.z = 0.172
+        t.transform.translation.x = 0.172
+        t.transform.translation.y = -0.032
+        t.transform.translation.z = 0
         t.transform.rotation.x = 0
         t.transform.rotation.y = 0
         t.transform.rotation.z = 0

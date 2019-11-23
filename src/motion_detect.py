@@ -21,17 +21,16 @@ class Detect():
         self._interval = msg
 
     def _update_transform(self):
-        tf = self._tfBuffer.lookup_transform(self._FRAME_TARGET, self._FRAME_ROBOT, rospy.Time())
+        tf = self._tfBuffer.lookup_transform(self._FRAME_ROBOT, self._FRAME_TARGET, rospy.Time())
         if self._current_location is not None:
             self._last_location = self._current_location
         self._current_location = tf
 
         if self._last_location is not None:
             _dist = self._distance()
-            print self._last_location.transform.translation.x
             _threshold = \
                 self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + \
-                    2 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY + \
+                    1.5 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY + \
                     2 * abs(self._twist.angular.x) / self._MAXIMUM_ROTATIONAL_VELOCITY) * \
                     (self._last_location.transform.translation.x ** 1.5 / 1)
             if _dist != 0:
@@ -54,6 +53,7 @@ class Detect():
         # temp.remove(min(temp))
         _mean = mean(temp)
         #Rostopic echo to debug
+        print _mean * 100
         self._motion_debugger_publisher.publish(_mean * 100)
         return _mean
 
@@ -139,4 +139,3 @@ if __name__ == '__main__':
     try:
         detect = Detect()
     except rospy.ROSInterruptException:  pass
-self._MAXIMUM_ROTATIONAL_VELOCITY

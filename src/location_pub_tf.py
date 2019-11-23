@@ -24,15 +24,18 @@ class Location_publisher():
         t.header.seq = self._seq
         t.header.frame_id = self._FRAME_LIDAR
         t.child_frame_id = self._FRAME_TARGET
-        t.transform.translation.x = msg.transform.transform.translation.x
-        t.transform.translation.y = msg.transform.transform.translation.y
-        t.transform.translation.z = msg.transform.transform.translation.z
+        '''
+        The axes of aruco detect and rviz do not align, therefore we have to convert them here.
+        '''
+        t.transform.translation.x = msg.transform.transform.translation.z 
+        t.transform.translation.y = msg.transform.transform.translation.x 
+        t.transform.translation.z = msg.transform.transform.translation.y
         t.transform.rotation.x = msg.transform.transform.rotation.x
         t.transform.rotation.y = msg.transform.transform.rotation.y
         t.transform.rotation.z = msg.transform.transform.rotation.z
         t.transform.rotation.w = msg.transform.transform.rotation.w
-        
-        # Publish the trandsform.
+        print "sending transform ", "x: ", t.transform.translation.x, "y: ", t.transform.translation.y, "z: ", t.transform.translation.z 
+        # Publish the transform
         br.sendTransform(t)
         self._seq = self._seq + 1
         
@@ -63,9 +66,9 @@ class Location_publisher():
         t.header.frame_id = self._FRAME_ROBOT
         t.child_frame_id = self._FRAME_LIDAR
 
-        t.transform.translation.x = -0.032
-        t.transform.translation.y = 0
-        t.transform.translation.z = 0.172
+        t.transform.translation.x = 0.172
+        t.transform.translation.y = -0.032
+        t.transform.translation.z = 0
         t.transform.rotation.x = 0
         t.transform.rotation.y = 0
         t.transform.rotation.z = 0

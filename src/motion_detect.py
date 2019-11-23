@@ -32,7 +32,7 @@ class Detect():
                 self._DETECTION_DISTANCE_TRIGGER_BASE * (1 + \
                     1.5 * abs(self._twist.linear.x) / self._MAXIMUM_LINEAR_VELOCITY + \
                     2 * abs(self._twist.angular.x) / self._MAXIMUM_ROTATIONAL_VELOCITY) * \
-                    (self._last_location.transform.translation.x ** 1.5 / 1)
+                    (self._last_location.transform.translation.x ** 2)
             if _dist != 0:
                 _ratio = _dist / _threshold
                 self._results.append(_ratio)
@@ -48,8 +48,6 @@ class Detect():
     def _get_moving_average(self):
         temp = copy.copy(self._results)
         # temp.remove(max(temp))
-        # temp.remove(max(temp))
-        # temp.remove(min(temp))
         # temp.remove(min(temp))
         _mean = mean(temp)
         #Rostopic echo to debug

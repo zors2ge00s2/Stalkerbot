@@ -24,6 +24,9 @@ class Location_publisher():
         t.header.seq = self._seq
         t.header.frame_id = self._FRAME_LIDAR
         t.child_frame_id = self._FRAME_TARGET
+        '''
+        The axes of aruco detect and rviz do not align, therefore we have to convert them here.
+        '''
         t.transform.translation.x = msg.transform.transform.translation.z 
         t.transform.translation.y = msg.transform.transform.translation.x 
         t.transform.translation.z = msg.transform.transform.translation.y

@@ -2,11 +2,12 @@
 <launch>
     <node name="ArucoDetect" pkg="aruco_detect" type="aruco_detect" output="log"/>
     <node name="camera_publisher" pkg="stalkerbot" type="camera_pub.py" output="log"/>
+    <node name="detect_interval" pkg="stalkerbot" type="detect_interval.py" output="log"/>
     <node name="fiducial_filter" pkg="stalkerbot" type="fiducial_filter.py" output="log"/>
     <node name="fiducial_interval" pkg="stalkerbot" type="fiducial_interval.py" output="log"/>
     <node name="location_publisher" pkg="stalkerbot" type="location_pub.py" output="log"/>
     <node name="location_publisher_tf" pkg="stalkerbot" type="location_pub_tf.py" output="log"/>
-    <node name="motion_detect" pkg="stalkerbot" type="motion_detect.py" output="screen"/>
+    <node name="motion_detect" pkg="stalkerbot" type="motion_detect.py" output="log"/>
     <node name="republish" type="republish" pkg="image_transport" output="log" args="compressed in:=raspicam_node/image raw out:=/camera"/>
     <node name="sigint_catcher" pkg="stalkerbot" type="sigint_catcher.py" output="screen"/>
     

@@ -2,6 +2,7 @@
 <launch>
     <node name="ArucoDetect" pkg="aruco_detect" type="aruco_detect" output="log"/>
     <node name="camera_publisher" pkg="stalkerbot" type="camera_pub.py" output="log"/>
+    <node name="detect_interval" pkg="stalkerbot" type="detect_interval.py" output="log"/>
     <node name="fiducial_filter" pkg="stalkerbot" type="fiducial_filter.py" output="log"/>
     <node name="fiducial_interval" pkg="stalkerbot" type="fiducial_interval.py" output="log"/>
     <node name="location_publisher" pkg="stalkerbot" type="location_pub.py" output="log"/>

@@ -13,18 +13,22 @@ import math
 def cb(msg):
     tf = msg.transform
     
-    trans = tfBuffer.lookup_transform('base_scan', 'target', rospy.Time())
+    trans = None
+    try:
+        trans = tfBuffer.lookup_transform('map', 'target', rospy.Time())
+    except (tf2_ros.LookupException, tf2_ros.ConnectivityException,tf2_ros.ExtrapolationException):
+        return
 
     global client
     goal = MoveBaseGoal()
-    goal.target_pose.header.frame_id = "base_scan"
+    goal.target_pose.header.frame_id = "map"
     x = trans.transform.translation.x
     # if x > 0:
     #     x +0.1
     # if x < 0:
     #     x - 0.1
     goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = trans.transform.translation.x 
+    goal.target_pose.pose.position.x = trans.transform.translation.x
     goal.target_pose.pose.position.y = trans.transform.translation.y 
     goal.target_pose.pose.position.z = trans.transform.translation.z 
     # orientation_q = trans.transform.rotation

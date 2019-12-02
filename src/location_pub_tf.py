@@ -25,7 +25,7 @@ class Location_publisher():
         t.header.frame_id = self._FRAME_LIDAR
         t.child_frame_id = self._FRAME_TARGET
         t.transform.translation.x = msg.transform.transform.translation.z 
-        t.transform.translation.y = msg.transform.transform.translation.x 
+        t.transform.translation.y = msg.transform.transform.translation.x
         t.transform.translation.z = msg.transform.transform.translation.y
         t.transform.rotation.x = msg.transform.transform.rotation.x
         t.transform.rotation.y = msg.transform.transform.rotation.y

@@ -6,12 +6,11 @@
     <node name="location_publisher" pkg="stalkerbot" type="location_pub.py" output="log"/>
     <node name="location_publisher_tf" pkg="stalkerbot" type="location_pub_tf.py" output="log"/>
     <node name="motion_detect" pkg="stalkerbot" type="motion_detect.py" output="log"/>
-    <node name="republish" type="republish" pkg="image_transport" output="log" args="compressed in:=raspicam_node/image raw out:=/camera"/>
+    <node name="republish" pkg="image_transport" type="republish" output="log" args="compressed in:=raspicam_node/image raw out:=/camera"/>
     <node name="sigint_catcher" pkg="stalkerbot" type="sigint_catcher.py" output="log"/>
     <node name="move_base_follow" pkg="stalkerbot" type="move_base_follow.py" output="log"/>
     <include file="$(find  turtlebot3_slam)/launch/turtlebot3_slam.launch">
         <arg name="slam_methods" value="gmapping"/>
     </include>
     <include file="$(find turtlebot3_navigation)/launch/move_base.launch"/>
-    <!-- <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/> -->
 </launch>

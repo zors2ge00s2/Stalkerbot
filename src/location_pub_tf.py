@@ -53,7 +53,6 @@ class Location_publisher():
         self._FRAME_CAMERA = ''
         self._FRAME_TARGET = ''
         self._FRAME_ROBOT = ''
-        self._CAMERA_INCLINE = 35
 
         '''load yaml content'''
         with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
@@ -79,9 +78,9 @@ class Location_publisher():
         Camera angle tilt 35 degrees
         '''
         t.transform.rotation.x = 0
-        t.transform.rotation.y = 0.301
+        t.transform.rotation.y = -0.326
         t.transform.rotation.z = 0
-        t.transform.rotation.w = 0.954
+        t.transform.rotation.w = 0.946
         br_static.sendTransform(t)
 
         sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, self._fiducial_cb, queue_size = 1)

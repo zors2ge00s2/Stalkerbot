@@ -12,4 +12,8 @@
     <node name="sigint_catcher" pkg="stalkerbot" type="sigint_catcher.py" output="screen"/>
 
     <node name="advanced_follow" pkg="stalkerbot" type="advanced_follow.py" output="screen"/>
+    <include file="$(find  turtlebot3_slam)/launch/turtlebot3_slam.launch">
+        <arg name="slam_methods" value="gmapping"/>
+    </include>
+    <include file="$(find turtlebot3_navigation)/launch/move_base.launch"/>
 </launch>

@@ -52,7 +52,6 @@ def cb(msg):
     goal.target_pose.pose.orientation.w = q[3]
     #print "x: ", q[0], "y: ", q[1], "z: ", q[2], "w: ", q[3]
 
-    goal.target_pose.pose.orientation.w = 1
     client.send_goal(goal)
     print "moving to goal"
     print "x: ", goal.target_pose.pose.position.x, "y: ", goal.target_pose.pose.position.y, "z: ", goal.target_pose.pose.position.z

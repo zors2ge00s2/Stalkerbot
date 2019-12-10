@@ -57,5 +57,5 @@ tf:
   frame_name:
     world: map
     robot: base_footprint
-    lidar: base_scan
+    camera: base_camera
     target: target

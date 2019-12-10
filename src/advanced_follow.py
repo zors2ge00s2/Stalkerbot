@@ -43,6 +43,7 @@ class Follow():
         self._DESIRED_DISTANCE = 0
         self._FREQUENCY = 0
         self._MAXIMUM_LINEAR_VELOCITY = 0
+        self._COEFFICIENT_LINEAR_VELOCITY = 0
         self._COEFFICIENT_ROTATIONAL_VELOCITY = 0
         self._COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = 0
         self._DETECTION_BUFFER_SEC = 0
@@ -53,6 +54,7 @@ class Follow():
             self._DESIRED_DISTANCE = config['core']['distance']['desired']
             self._FREQUENCY = config['core']['frequency']['cmd_vel']
             self._MAXIMUM_LINEAR_VELOCITY = config['core']['velocity']['linear']['maximum']
+            self._COEFFICIENT_LINEAR_VELOCITY = config['core']['velocity']['linear']['coefficient']
             self._COEFFICIENT_ROTATIONAL_VELOCITY = config['core']['velocity']['rotational']['coefficient']
             self._COEFFICIENT_ROTATIONAL_VELOCITY_BUFFER = config['core']['velocity']['rotational']['buffer_coefficient']
             self._DETECTION_BUFFER_SEC = config['core']['buffer']['detection']['sec']

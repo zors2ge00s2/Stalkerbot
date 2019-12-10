@@ -2,7 +2,7 @@ core:
   distance:
     desired: 1
     detection:
-      trigger_base: 0.025
+      trigger_base: 0.015
   buffer:
     movement:
       sec: 0
@@ -11,22 +11,26 @@ core:
       sec: 2
     search:
       sec: 4
+    motion_detect:
+      sec: 2
   velocity:
     linear:
-      maximum: 0.2
-      coefficient: ~
+      maximum: 0.22
+      coefficient: 0.12
     rotational:
-      maximum: ~
+      maximum: 0.5
       coefficient: 2
       buffer_coefficient: 0.5
   frequency:
-    interval: 10
+    interval:
+      fiducial: 10
+      detection: 10
     cmd_vel: 10
     search_preempt: 10
     motion_detect: 5
     motion_detect_linger: 0
   size:
-    detection_deque: 5
+    detection_deque: 10
   target_fiducials:
     warm:
     - 100

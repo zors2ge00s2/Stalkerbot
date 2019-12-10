@@ -25,12 +25,14 @@ class Location_publisher():
         t.header.seq = self._seq
         t.header.frame_id = self._FRAME_CAMERA
         t.child_frame_id = self._FRAME_TARGET
+
         # h = math.sqrt(msg.transform.transform.translation.y ** 2 + msg.transform.transform.translation.z ** 2)
         # theta_1 = math.radians(self._CAMERA_INCLINE)
         # theta_2 = math.atan(msg.transform.transform.translation.y / msg.transform.transform.translation.z)
         # t.transform.translation.x = h * (math.sin(math.radians(90) - theta_1 - theta_2))
         # t.transform.translation.y = msg.transform.transform.translation.x
         # t.transform.translation.z = h * (math.sin(theta_1 + theta_2))
+
         t.transform.translation.x = msg.transform.transform.translation.z 
         t.transform.translation.y = msg.transform.transform.translation.x
         t.transform.translation.z = msg.transform.transform.translation.y
@@ -75,6 +77,7 @@ class Location_publisher():
         t.transform.translation.x = 0.05
         t.transform.translation.y = 0
         t.transform.translation.z = 0.1
+        
         '''
         Camera angle tilt 35 degrees
         '''

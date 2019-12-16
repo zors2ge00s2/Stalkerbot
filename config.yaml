@@ -1,6 +1,6 @@
 core:
   distance:
-    desired: 1
+    desired: 0.8
     detection:
       trigger_base: 0.015
   buffer:

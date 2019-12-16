@@ -4,6 +4,7 @@ import geometry_msgs.msg
 import os
 import tf2_ros
 import yaml
+import math
 from stalkerbot.msg import filtered_transform
 
 
@@ -22,14 +23,20 @@ class Location_publisher():
 
         t.header.stamp = rospy.Time.now()
         t.header.seq = self._seq
-        t.header.frame_id = self._FRAME_LIDAR
+        t.header.frame_id = self._FRAME_CAMERA
         t.child_frame_id = self._FRAME_TARGET
-        '''
-        The axes of aruco detect and rviz do not align, therefore we have to convert them here.
-        '''
+
+        # h = math.sqrt(msg.transform.transform.translation.y ** 2 + msg.transform.transform.translation.z ** 2)
+        # theta_1 = math.radians(self._CAMERA_INCLINE)
+        # theta_2 = math.atan(msg.transform.transform.translation.y / msg.transform.transform.translation.z)
+        # t.transform.translation.x = h * (math.sin(math.radians(90) - theta_1 - theta_2))
+        # t.transform.translation.y = msg.transform.transform.translation.x
+        # t.transform.translation.z = h * (math.sin(theta_1 + theta_2))
+
         t.transform.translation.x = msg.transform.transform.translation.z 
-        t.transform.translation.y = msg.transform.transform.translation.x 
+        t.transform.translation.y = msg.transform.transform.translation.x
         t.transform.translation.z = msg.transform.transform.translation.y
+
         t.transform.rotation.x = msg.transform.transform.rotation.x
         t.transform.rotation.y = msg.transform.transform.rotation.y
         t.transform.rotation.z = msg.transform.transform.rotation.z
@@ -45,18 +52,18 @@ class Location_publisher():
         self._seq = 1
 
         '''class constants'''
-        self._FRAME_LIDAR = ''
+        self._FRAME_CAMERA = ''
         self._FRAME_TARGET = ''
         self._FRAME_ROBOT = ''
 
         '''load yaml content'''
         with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
             config = yaml.load(file, Loader=yaml.FullLoader)
-            self._FRAME_LIDAR = config['tf']['frame_name']['lidar']
+            self._FRAME_CAMERA = config['tf']['frame_name']['camera']
             self._FRAME_TARGET = config['tf']['frame_name']['target']
             self._FRAME_ROBOT = config['tf']['frame_name']['robot']
 
-        '''decares tf transform between lidar and base of the robot.
+        '''decares tf transform between camera and base of the robot.
         Please refer to the urdf file of turtlebot for more information'''
         br_static = tf2_ros.StaticTransformBroadcaster()
         t = geometry_msgs.msg.TransformStamped()
@@ -64,16 +71,19 @@ class Location_publisher():
         t.header.stamp = rospy.Time.now()
         t.header.seq = 0
         t.header.frame_id = self._FRAME_ROBOT
-        t.child_frame_id = self._FRAME_LIDAR
+        t.child_frame_id = self._FRAME_CAMERA
 
-        t.transform.translation.x = 0.172
-        t.transform.translation.y = -0.032
-        t.transform.translation.z = 0
+        t.transform.translation.x = 0.05
+        t.transform.translation.y = 0
+        t.transform.translation.z = 0.1
+        
+        '''
+        Camera angle tilt 35 degrees
+        '''
         t.transform.rotation.x = 0
-        t.transform.rotation.y = 0
+        t.transform.rotation.y = -0.326
         t.transform.rotation.z = 0
-        t.transform.rotation.w = 1
-
+        t.transform.rotation.w = 0.946
         br_static.sendTransform(t)
 
         sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, self._fiducial_cb, queue_size = 1)

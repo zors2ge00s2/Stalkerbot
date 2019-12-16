@@ -87,4 +87,3 @@ Change move_forward_only to true
 #### config.yaml file
 The file is a centralized method to store and change constants in our algorithm when necessary.
 Helpful reading: https://martin-thoma.com/configuration-files-in-python/#yaml
-

@@ -3,7 +3,7 @@
 import rospy
 import os
 import yaml
-from std_msgs.msg import Time
+from std_msgs.msg import Time, Bool
 from stalkerbot.msg import filtered_transform
 
 '''
@@ -14,27 +14,40 @@ Note: The interval considers both warm and code fiducial markers. In other words
 It makes no effort to differentiate between the two.
 '''
 
-rospy.init_node('fiducial_interval')
-last_marker_detection_time = None
+class Fiducial_Interval():
 
-'''Update detection time upon marker detection'''
-def fiducial_cb(msg):
-    global last_marker_detection_time
-    last_marker_detection_time = rospy.Time.now()
+    '''Update detection time upon marker detection'''
+    def fiducial_cb(self, msg):
+        self._last_marker_detection_time = rospy.Time.now()
 
-sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, fiducial_cb, queue_size=1)
-interval_publisher = rospy.Publisher('/stalkerbot/fiducial/interval', Time, queue_size=1)
+    def __init__(self):
+        self._last_marker_detection_time = None
 
-'''Extract rate from config file'''
-rate = None
-with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
-    config = yaml.load(file, Loader=yaml.FullLoader)
-    rate = rospy.Rate(config['core']['frequency']['interval'])
+        sub = rospy.Subscriber('/stalkerbot/fiducial/transform', filtered_transform, self.fiducial_cb, queue_size=1)
+        interval_publisher = rospy.Publisher('/stalkerbot/fiducial/interval', Time, queue_size=1)
 
-while not rospy.is_shutdown():
-    current_time = rospy.Time.now()
-    if last_marker_detection_time is not None:
-        time_elapsed = current_time - last_marker_detection_time
-        interval_publisher.publish(time_elapsed)
-    rate.sleep()
+        '''Extract rate from config file'''
+        rate = None
+        with open(os.path.dirname(__file__) + '/../config.yaml','r') as file:
+            config = yaml.load(file, Loader=yaml.FullLoader)
+            rate = rospy.Rate(config['core']['frequency']['interval']['fiducial'])
+
+        while not rospy.is_shutdown():
+            current_time = rospy.Time.now()
+            if self._last_marker_detection_time is not None:
+                time_elapsed = current_time - self._last_marker_detection_time
+                interval_publisher.publish(time_elapsed)
+            rate.sleep()
+
+if __name__ == '__main__':
+    rospy.init_node('fiducial_interval')
+    try:
+        fiducial_interval = Fiducial_Interval()
+    except rospy.ROSInterruptException:  pass
+
+
+
+
+
+
     

@@ -95,7 +95,7 @@ class Detect():
 
         '''create a deque as part of the moving average algorithm
         in order to minimize the effect of sensor noise'''
-        self._results = deque([], maxlen=10)
+        self._results = deque([], maxlen=self._DEQUE_SIZE)
         self._rate = rospy.Rate(self._FREQUENCY)
         while not rospy.is_shutdown():
 
@@ -109,6 +109,7 @@ class Detect():
             if self._interval is None or self._interval.data.secs >= self._MOTION_DETECT_BUFFER_SEC:
                 motion_publisher.publish(False)
                 self._results.clear()
+                self._rate.sleep()
                 continue
 
             elif len(self._results) < self._DEQUE_SIZE:

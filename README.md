@@ -73,7 +73,11 @@ Things I had to do to get move_base running right
 
 Open global_costmap_param.yaml  
 Change/add these parameters:  
-static_map: false   width: 40.0  height: 40.0  origin_x: -10.0  origin_y: -10.0  
+static_map: false  
+width: 40.0  
+height: 40.0  
+origin_x: -10.0  
+origin_y: -10.0  
 
 Go to turtlebot3_navigation
 Open the move_base.launch file

@@ -79,9 +79,9 @@ height: 40.0
 origin_x: -10.0  
 origin_y: -10.0  
 
-Go to turtlebot3_navigation
-Open the move_base.launch file
-Change move_forward_only to true
+Go to turtlebot3_navigation  
+Open the move_base.launch file  
+Change move_forward_only to true  
 
 > $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
 

@@ -71,9 +71,9 @@ Finally, to check if the camera is working, bring up the camera panel:
 Things I had to do to get move_base running right
 > $ roscd turtlebot3_navigation/param
 
-Open global_costmap_param.yaml\
-Change/add these parameters:\
-static_map: false\ width: 40.0\ height: 40.0\ origin_x: -10.0\ origin_y: -10.0\
+Open global_costmap_param.yaml
+Change/add these parameters: \
+static_map: false \ width: 40.0 \ height: 40.0 \ origin_x: -10.0 \ origin_y: -10.0 \
 
 Go to turtlebot3_navigation
 Open the move_base.launch file

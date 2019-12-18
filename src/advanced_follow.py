@@ -91,7 +91,7 @@ class Follow():
                 self._rate.sleep()
             '''if the marker is 'warm' and distance is bigger than desired distance
             AND interval is initiated and does not exceed detection buffer (not detecting marker for too long)'''
-            if self._location is not None and self._detect_interval is not None and self._location.z_translation <= self._DESIRED_DISTANCE and self._detect_interval.data.secs > 4:
+            if self._location is not None and self._detect_interval is not None and self._detect_interval.data.secs > 4 and self._location.z_translation <= self._DESIRED_DISTANCE:
                 return
             if self._warm and self._location is not None and self._interval is not None and self._trans is not None\
                 and self._location.z_translation > self._DESIRED_DISTANCE: #and self._interval.data.secs < self._DETECTION_BUFFER_SEC:
@@ -114,7 +114,7 @@ class Follow():
                 pitch = 0 
                 yaw = math.atan2(self._trans.transform.translation.y, self._trans.transform.translation.x)
                 q = quaternion_from_euler(roll, pitch, yaw)
-
+        
                 _goal.target_pose.pose.orientation.x = q[0]
                 _goal.target_pose.pose.orientation.y = q[1]
                 _goal.target_pose.pose.orientation.z = q[2]

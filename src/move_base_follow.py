@@ -24,9 +24,9 @@ def cb(msg):
     goal.target_pose.header.frame_id = "map"
     x = trans.transform.translation.x
     # if x > 0:
-    #     x +0.1
+    #     x + 1
     # if x < 0:
-    #     x - 0.1
+    #     x - 1
     goal.target_pose.header.stamp = rospy.Time.now()
     goal.target_pose.pose.position.x = trans.transform.translation.x
     goal.target_pose.pose.position.y = trans.transform.translation.y 
@@ -37,9 +37,9 @@ def cb(msg):
     # orientation_q.z = z
     # orientation_q.w = w
     
-    orientation_q = msg.transform.transform.rotation
-    orientation_list = [orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w]
-    (roll, pitch, yaw) = euler_from_quaternion (orientation_list)
+    # orientation_q = msg.transform.transform.rotation
+    # orientation_list = [orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w]
+    # (roll, pitch, yaw) = euler_from_quaternion (orientation_list)
     roll = 0
     pitch = 0 
     yaw = math.atan2(trans.transform.translation.y, trans.transform.translation.x)

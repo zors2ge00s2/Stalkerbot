@@ -1,6 +1,6 @@
 core:
   distance:
-    desired: 0.3
+    desired: 0.8
     detection:
       trigger_base: 0.015
   buffer:
@@ -25,7 +25,7 @@ core:
     interval:
       fiducial: 10
       detection: 10
-    cmd_vel: 10
+    cmd_vel: 2
     search_preempt: 10
     motion_detect: 5
     motion_detect_linger: 0

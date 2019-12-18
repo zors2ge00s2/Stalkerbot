@@ -33,7 +33,7 @@ class Location_publisher():
         # t.transform.translation.y = msg.transform.transform.translation.x
         # t.transform.translation.z = h * (math.sin(theta_1 + theta_2))
 
-        t.transform.translation.x = msg.transform.transform.translation.z 
+        t.transform.translation.x = msg.transform.transform.translation.z
         t.transform.translation.y = msg.transform.transform.translation.x
         t.transform.translation.z = msg.transform.transform.translation.y
 
